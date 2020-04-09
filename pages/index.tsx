@@ -1,16 +1,32 @@
-import { NextPage } from "next";
+import { NextPage, NextComponentType, NextPageContext } from "next";
+import Layout from "@components/MyLayout";
 import Link from "next/link";
-import Hello from "@components/Hello";
 
-const Index: NextPage = () => {
+interface Props {
+  title: string;
+}
+
+const PostLink: NextComponentType<NextPageContext, {}, Props> = (props) => {
   return (
-    <div>
-      <Link href="/about">
-        <a title="About Page">About Page</a>
+    <li>
+      <Link href={`/post?title=${props.title}`}>
+        <a>{props.title}</a>
       </Link>
-      <Hello />
-    </div>
+    </li>
   );
 };
 
-export default Index;
+const Blog: NextPage = () => {
+  return (
+    <Layout>
+      <h1>My Blog</h1>
+      <ul>
+        <PostLink title="Hello Next.js" />
+        <PostLink title="Learn Next.js is awesome" />
+        <PostLink title="Deploy apps with Zeit" />
+      </ul>
+    </Layout>
+  );
+};
+
+export default Blog;
