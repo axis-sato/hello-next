@@ -1,9 +1,10 @@
 import { NextPage } from "next";
+import Hello from "@components/Hello";
 
 const Index: NextPage = () => {
   return (
     <div>
-      <p>Hello Next.js</p>
+      <Hello />
     </div>
   );
 };
