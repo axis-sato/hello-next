@@ -8,6 +8,7 @@ module.exports = {
       ...config.resolve.alias,
       "@pages": path.resolve(__dirname, "./pages"),
       "@components": path.resolve(__dirname, "./components"),
+      "@core": path.resolve(__dirname, "./core"),
     };
     return config;
   },

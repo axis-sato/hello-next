@@ -1,32 +1,45 @@
-import { NextPage, NextComponentType, NextPageContext } from "next";
+import { NextPage } from "next";
 import Layout from "@components/MyLayout";
 import Link from "next/link";
+import fetcher from "@core/fetcher";
+import Show from "@core/show";
 
-interface Props {
-  id: string;
-}
-
-const PostLink: NextComponentType<NextPageContext, {}, Props> = (props) => {
-  return (
-    <li>
-      <Link href="/p/[id]" as={`/p/${props.id}`}>
-        <a>{props.id}</a>
-      </Link>
-    </li>
-  );
+type Response = {
+  source: number;
+  show: Show;
 };
 
-const Blog: NextPage = () => {
+interface Props {
+  shows: Array<Show>;
+}
+
+const Index: NextPage<Props> = ({ shows }) => {
   return (
     <Layout>
-      <h1>My Blog</h1>
+      <h1>Batman TV Shows</h1>
       <ul>
-        <PostLink id="hello-nextjs" />
-        <PostLink id="learn-nextjs" />
-        <PostLink id="deploy-nextjs" />
+        {shows.map((show) => (
+          <li key={show.id}>
+            <Link href="/p/[id]" as={`/p/${show.id}`}>
+              <a>{show.name}</a>
+            </Link>
+          </li>
+        ))}
       </ul>
     </Layout>
   );
 };
 
-export default Blog;
+Index.getInitialProps = async (): Promise<Props> => {
+  const ress = await fetcher<Array<Response>>(
+    "https://api.tvmaze.com/search/shows?q=batman"
+  );
+
+  console.log(ress);
+
+  return {
+    shows: ress.map((res) => res.show),
+  };
+};
+
+export default Index;

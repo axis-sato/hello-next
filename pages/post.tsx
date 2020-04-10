@@ -1,8 +1,8 @@
-import { NextPage, NextComponentType, NextPageContext } from "next";
+import { NextPage, NextComponentType } from "next";
 import { useRouter } from "next/router";
 import Layout from "@components/MyLayout";
 
-const Content: NextComponentType<NextPageContext> = () => {
+const Content: NextComponentType = () => {
   const router = useRouter();
   const { title } = router.query;
   return (

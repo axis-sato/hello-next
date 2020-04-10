@@ -11,6 +11,7 @@
     "paths": {
       "@pages/*": ["./pages/*"],
       "@components/*": ["./components/*"],
+      "@core/*": ["./core/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,
